@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحدي درع الحماية السيبرانية</title>
+    <style>
+        body {
+            font-family: 'Cairo', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 650px;
+            margin: 30px auto;
+            background: #ffffff;
+            color: #333;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        input, button {
+            padding: 12px 20px;
+            font-size: 18px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            width: 80%;
+        }
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #1d4ed8; }
+        .hidden { display: none; }
+        .certificate {
+            border: 5px solid #d97706;
+            padding: 20px;
+            background: #fffbeb;
+            border-radius: 15px;
+            color: #1e293b;
+        }
+        .option-btn {
+            display: block;
+            width: 100%;
+            background: #f1f5f9;
+            color: #1e293b;
+            border: 2px solid #cbd5e1;
+            margin: 10px 0;
+            text-align: right;
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .option-btn:hover { background: #e2e8f0; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="step-name">
+    <h2>🛡️ رحلة حماية الأجهزة مع سالم</h2>
+    <p>أهلاً بكِ يا بطلة! أدخلي اسمكِ الثلاثي للبدء في تحدي إكمال درع الحماية:</p>
+    <input type="text" id="student-name" placeholder="اكتبي اسمك هنا...">
+    <br>
+    <button onclick="startQuiz()">ابدأ التحدي 🚀</button>
+</div>
+
+<div class="container hidden" id="step-quiz">
+    <h3 id="question-title" style="color: #1e3a8a;">السؤال</h3>
+    <div id="options-container"></div>
+</div>
+
+<div class="container hidden" id="step-cert">
+    <div class="certificate">
+        <h2>🎉 مبروك يا مميزة! 🎉</h2>
+        <p>تشهد معلمة الحاسب الآلي بأن الطالبة:</p>
+        <h1 id="cert-name" style="color: #2563eb;">[اسم الطالبة]</h1>
+        <p>قد أكملت بنجاح تحدي <b>درع الحماية السيبرانية</b> لسالم، وأصبحت تمتلك معلومات واعية لحماية أجهزتها وحساباتها من الاحتيال!</p>
+        <hr style="border: 0; border-top: 1px dashed #d97706; margin: 15px 0;">
+        <p style="font-size: 16px; color: #b45309; font-weight: bold;">📸 صوري الصفحة الآن وارسليها للمعلمة في الدردشة!</p>
+    </div>
+</div>
+
+<script>
+    let studentName = "";
+    let currentQuestion = 0;
+
+    const questions = [
+        {
+            title: "السؤال الأول: ما هي المواصفات الصحيحة لكلمة المرور القوية؟",
+            options: [
+                "تحتوي على اسمي وتاريخ ميلادي فقط لكي لا أساها.",
+                "تحتوي على أحرف وأرقام ورموز ومختلفة لكل حساب.",
+                "قصيرة وسهلة جداً لأشاركها مع صديقاتي."
+            ],
+            correct: 1
+        },
+        {
+            title: "السؤال الثاني: وصلكِ رمز سري (OTP) على جوالكِ ولم تقومي أنتِ بطلب تسجيل الدخول، ماذا يعني ذلك؟",
+            options: [
+                "هناك من يحاول الوصول إلى حسابي بشكل غير آمن.",
+                "رسالة عادية لا داعي للانتباه لها.",
+                "هدية مجانية يجب أن أشاركها مع الآخرين."
+            ],
+            correct: 0
+        },
+        {
+            title: "السؤال الثالث: لماذا يُعتبر (التحقق الثنائي 2FA) خياراً أثبت قوة في الحماية؟",
+            options: [
+                "لأنه يستخدم وسيلتين مختلفتين لتأمين الحساب (مثل كلمة المرور + بصمة أو رمز).",
+                "لأنه يلغي كلمة المرور نهائياً ويجعل الحساب بلا قفل.",
+                "لأنه يمنع فتح الجهاز في أوقات الصباح فقط."
+            ],
+            correct: 0
+        },
+        {
+            title: "السؤال الرابع: أراد سالم أن يترك جهازه اللوحي ليلعب مع أخته، ما هو التصرف الآمن؟",
+            options: [
+                "يتركه مفتوحاً على الشاشة الرئيسية ويذهب بسرعة.",
+                "يقفل الشاشة تماماً قبل أن يبتعد عنه.",
+                "يترك التطبيق يعمل لكي لا تنغلق لعبته."
+            ],
+            correct: 1
+        },
+        {
+            title: "السؤال الخامس: تطبيق خاص بالرسم، ما هي الصلاحيات المناسبة التي يجب أن يطلبها؟",
+            options: [
+                "الوصول إلى الكاميرا، الموقع الجغرافي، وجهات الاتصال بالكامل.",
+                "الوصول إلى اسم المستخدم والصور فقط لحفظ اللوحات واستيرادها.",
+                "الوصول إلى الرسائل النصية والبنكية."
+            ],
+            correct: 1
+        }
+    ];
+
+    function startQuiz() {
+        const input = document.getElementById("student-name").value.trim();
+        if (input === "") {
+            alert("الرجاء كتابة الاسم أولاً!");
+            return;
+        }
+        studentName = input;
+        document.getElementById("step-name").classList.add("hidden");
+        document.getElementById("step-quiz").classList.remove("hidden");
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        if (currentQuestion < questions.length) {
+            let q = questions[currentQuestion];
+            document.getElementById("question-title").innerText = q.title;
+            let optContainer = document.getElementById("options-container");
+            optContainer.innerHTML = "";
+            q.options.forEach((opt, index) => {
+                let btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(index, q.correct);
+                optContainer.appendChild(btn);
+            });
+        } else {
+            showCertificate();
+        }
+    }
+
+    function checkAnswer(selected, correct) {
+        if (selected === correct) {
+            currentQuestion++;
+            loadQuestion();
+        } else {
+            alert("إجابة خاطئة يا بطلة، حاولي التركيز واختيار التصرف الآمن!");
+        }
+    }
+
+    function showCertificate() {
+        document.getElementById("step-quiz").classList.add("hidden");
+        document.getElementById("step-cert").classList.remove("hidden");
+        document.getElementById("cert-name").innerText = studentName;
+    }
+</script>
+
+</body>
+</html>
