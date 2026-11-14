@@ -46,6 +46,8 @@
             background: #fffbeb;
             border-radius: 15px;
             color: #1e293b;
+            text-align: right;
+            line-height: 1.8;
         }
         .option-btn {
             display: block;
@@ -74,18 +76,22 @@
 </div>
 
 <div class="container hidden" id="step-quiz">
-    <h3 id="question-title" style="color: #1e3a8a;">السؤال</h3>
+    <h3 id="question-title" style="color: #1e3a8a; text-align: center;">السؤال</h3>
     <div id="options-container"></div>
 </div>
 
 <div class="container hidden" id="step-cert">
     <div class="certificate">
-        <h2>🎉 مبروك يا مميزة! 🎉</h2>
-        <p>تشهد معلمة الحاسب الآلي بأن الطالبة:</p>
-        <h1 id="cert-name" style="color: #2563eb;">[اسم الطالبة]</h1>
-        <p>قد أكملت بنجاح تحدي <b>درع الحماية السيبرانية</b> لسالم، وأصبحت تمتلك معلومات واعية لحماية أجهزتها وحساباتها من الاحتيال!</p>
+        <h3 id="cert-greeting" style="color: #2563eb; text-align: center;">🎉 أحسنتِ!</h3>
+        <p>لقد أتممتِ نشاط الأمن السيبراني بنجاح، وأثبتِ امتلاككِ وعيًا رقميًا يساعدكِ على حماية نفسكِ وبياناتكِ في العالم الرقمي.</p>
+        <p><b>🏅 تستحقين شهادة اجتياز النشاط!</b></p>
+        <p style="margin: 10px 0; color: #b45309;">
+            🏫 <b>من متوسطة أم عامر بنت يزيد</b><br>
+            👩‍🏫 <b>المعلمة / دلال علي المطيري</b>
+        </p>
+        <p style="text-align: center; color: #1e3a8a; font-weight: bold; margin-top: 15px;">كوني واعية، كوني آمنة، فأنتِ خط الدفاع الأول.</p>
         <hr style="border: 0; border-top: 1px dashed #d97706; margin: 15px 0;">
-        <p style="font-size: 16px; color: #b45309; font-weight: bold;">📸 صوري الصفحة الآن وارسليها للمعلمة في الدردشة!</p>
+        <p style="font-size: 15px; color: #b45309; text-align: center; font-weight: bold;">📸 صوري الشاشة وارسليها للمعلمة في الدردشة!</p>
     </div>
 </div>
 
@@ -183,7 +189,7 @@
     function showCertificate() {
         document.getElementById("step-quiz").classList.add("hidden");
         document.getElementById("step-cert").classList.remove("hidden");
-        document.getElementById("cert-name").innerText = studentName;
+        document.getElementById("cert-greeting").innerHTML = `🎉 أحسنتِ يا ${studentName}!`;
     }
 </script>
 
